@@ -27,10 +27,25 @@ console.log(ap.cursos);
 let apredizTable: HTMLElement = document.getElementById("aprendiz")!;
 let estadisticasTable: HTMLElement = document.getElementById("estadisticas")!;
 let cursosTable: HTMLElement = document.getElementById("cursos")!;
+let btnFiltro: HTMLElement = document.getElementById("boton-filtro")!;
+//hay que hacer un casting para obtenerlo<HTMLInputElement>
+let textoBusqueda: HTMLInputElement = <HTMLInputElement>document.getElementById("texto-busqueda")!;
+
+//Vamos a realizar el evento del click en el boton, se declara mas abajo
+btnFiltro.onclick = filtrarPorNombre;
 
 mostrarDatosAprendiz(ap);
 mostrarEstadisticas(ap);
 mostrarCursosAprendiz(ap);
+
+function filtrarPorNombre(): void{
+    let text:string = textoBusqueda.value;
+    //aqui agregamos una condicional, si nadie a puesto nada, cambiamos el null
+    //por cadena de caracteres vacia
+    text = (text==null)?"":text;
+    //Eliminar todos los cursos que habian antes volver a pintar la tabla
+    cursosTable.getElementsByTagName("tbody")[0].remove();
+}
 
 function mostrarDatosAprendiz(aprendiz: Aprendiz): void {
     let tbodyAprendiz = document.createElement("tbody");
